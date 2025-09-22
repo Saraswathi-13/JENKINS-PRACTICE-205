@@ -3,14 +3,12 @@ import axios from 'axios';
 import './style.css';
 import config from './config.js';
 
-
 const Manager = () => {
   const [managers, setManagers] = useState([]);
   const [manager, setManager] = useState({
     id: '',
     name: '',
     gender: '',
-    
     program: '',
     experience: '',
     salary: '',
@@ -39,13 +37,19 @@ const Manager = () => {
   };
 
   const handleChange = (e) => {
-    setManager({ ...manager, [e.target.name]: e.target.value });
-  };
+    const { name, value } = e.target;
 
+    // Keep ID as int only when entered, else blank
+    if (name === "id") {
+      setManager({ ...manager, id: value === "" ? "" : parseInt(value, 10) });
+    } else {
+      setManager({ ...manager, [name]: value });
+    }
+  };
 
   const validateForm = () => {
     for (let key in manager) {
-      if (!manager[key] || manager[key].toString().trim() === '') {
+      if (manager[key] === '' || manager[key] === null) {
         setMessage(`Please fill out the ${key} field.`);
         return false;
       }
@@ -69,7 +73,7 @@ const Manager = () => {
     if (!validateForm()) return;
     try {
       await axios.put(`${baseUrl}/update`, manager);
-      setMessage('manager updated successfully.');
+      setMessage('Manager updated successfully.');
       fetchAllManagers();
       resetForm();
     } catch (error) {
@@ -94,14 +98,14 @@ const Manager = () => {
       setMessage('');
     } catch (error) {
       setFetchedManager(null);
-      setMessage('manager not found.');
+      setMessage('Manager not found.');
     }
   };
 
   const handleEdit = (stud) => {
     setManager(stud);
     setEditMode(true);
-    setMessage(`Editing maanger with ID ${stud.id}`);
+    setMessage(`Editing manager with ID ${stud.id}`);
   };
 
   const resetForm = () => {
@@ -122,19 +126,23 @@ const Manager = () => {
   return (
     <div className="manager-container">
 
-{message && (
-  <div className={`message-banner ${message.toLowerCase().includes('error') ? 'error' : 'success'}`}>
-    {message}
-  </div>
-)}
+      {message && (
+        <div className={`message-banner ${message.toLowerCase().includes('error') ? 'error' : 'success'}`}>
+          {message}
+        </div>
+      )}
 
-
-      
-
+      {/* Add / Edit Manager */}
       <div>
-        <h3>{editMode ? 'Edit manager' : 'Add Manager'}</h3>
+        <h3>{editMode ? 'Edit Manager' : 'Add Manager'}</h3>
         <div className="form-grid">
-          <input type="number" name="id" placeholder="ID" value={manager.id} onChange={handleChange} />
+          <input
+            type="number"
+            name="id"
+            placeholder="ID"
+            value={manager.id === '' ? '' : manager.id}
+            onChange={handleChange}
+          />
           <input type="text" name="name" placeholder="Name" value={manager.name} onChange={handleChange} />
           <select name="gender" value={manager.gender} onChange={handleChange}>
             <option value="">Select Gender</option>
@@ -145,14 +153,13 @@ const Manager = () => {
             <option value="">Select Program</option>
             <option value="Technical">Technical</option>
             <option value="Non Technical">Non Technical</option>
-            
           </select>
           <select name="experience" value={manager.experience} onChange={handleChange}>
             <option value="">Select Experience</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="1">one</option>
+            <option value="2">two</option>
+            <option value="3">three</option>
+            <option value="4">four</option>
           </select>
           <select name="salary" value={manager.salary} onChange={handleChange}>
             <option value="">Select Salary</option>
@@ -176,6 +183,7 @@ const Manager = () => {
         </div>
       </div>
 
+      {/* Fetch by ID */}
       <div>
         <h3>Get Manager By ID</h3>
         <input
@@ -194,6 +202,7 @@ const Manager = () => {
         )}
       </div>
 
+      {/* All Managers Table */}
       <div>
         <h3>All Managers</h3>
         {managers.length === 0 ? (
@@ -213,7 +222,7 @@ const Manager = () => {
                 {managers.map((stud) => (
                   <tr key={stud.id}>
                     {Object.keys(manager).map((key) => (
-                      <td key={key}>{stud[key]}</td>
+                      <td key={key}>{stud[key] === '' ? '' : stud[key]}</td>
                     ))}
                     <td>
                       <div className="action-buttons">

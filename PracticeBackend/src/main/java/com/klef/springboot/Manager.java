@@ -16,13 +16,13 @@ public class Manager {
 	@Column(name = "manager_gender", nullable = false, length = 10)
 	private String gender; //FEMALE or MALE
 	
-	@Column(name = "manager_program", nullable = false, length = 10)
+	@Column(name = "manager_program", nullable = false, length = 30)
 	private String program; //B.Tech or M.Tech or BCA or MCA
 	@Column(name = "manager_experience", nullable = false)
 	private String experience; // 1 or 2 or 3
-	@Column(name = "manager_salary", nullable = false, length = 10)
+	@Column(name = "manager_salary", nullable = false, length = 30)
 	private String salary; // ODD or EVEN
-	@Column(name = "manager_email", nullable = false, unique = true, length = 20)
+	@Column(name = "manager_email", nullable = false, unique = true, length = 50)
 	private String email;
 	@Column(name = "manager_password", nullable = false, length = 50)
 	private String password;
@@ -86,7 +86,7 @@ public class Manager {
 	}
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", gender=" + gender + ", program=" + program + ", experience=" + experience + ", salary=" + salary + ", email=" + email
+		return "Manager [id=" + id + ", name=" + name + ", gender=" + gender + ", program=" + program + ", experience=" + experience + ", salary=" + salary + ", email=" + email
 				+ ", password=" + password + ", contact=" + contact + "]";
 	}
 }
