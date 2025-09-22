@@ -1,0 +1,71 @@
+package com.klef.springboot;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+@RestController
+@RequestMapping("/studentapi/")
+@CrossOrigin(origins = "*")
+public class ManagerController {
+
+    @Autowired
+    private ManagerService managerService;
+    
+    @GetMapping("/")
+    public String home() 
+    {
+        return "Jenkins Full Stack Deployment Demo";
+    }
+    
+
+    @PostMapping("/add")
+    public ResponseEntity<Manager> addManager(@RequestBody Manager student) {
+        Manager savedManager = managerService.addManager(student);
+        return new ResponseEntity<>(savedManager, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Manager>> getAllStudents() {
+        List<Manager>managers = managerService.getAllManagers();
+        return new ResponseEntity<>(managers, HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getStudentById(@PathVariable int id) {
+    	Manager student = managerService.getManagerById(id);
+        if (student != null) {
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Student with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateStudent(@RequestBody Manager student) {
+    	Manager existing = managerService.getManagerById(student.getId());
+        if (existing != null) {
+        	Manager updatedStudent = managerService.updateManager(student);
+            return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Cannot update. Student with ID " + student.getId() + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable int id) {
+    	Manager existing = managerService.getManagerById(id);
+        if (existing != null) {
+            managerService.deleteManagerById(id);
+            return new ResponseEntity<>("Student with ID " + id + " deleted successfully.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Cannot delete. Student with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+}

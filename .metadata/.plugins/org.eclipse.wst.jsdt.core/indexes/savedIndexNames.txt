@@ -1,0 +1,2 @@
+INDEX VERSION 1.4+D:\3-1\PRACTICE\JENKINS FULLSTACK\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3374927078.index
