@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.klef.dev</groupId>
-	<artifactId>STUDENTAPI-SPRINGBOOT</artifactId>
+	<artifactId>PracticeBackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SpringBootProject</name>
 	<description>Demo project for Spring Boot</description>
@@ -64,7 +64,7 @@
 	</dependencies>
 
 	<build>
-	<finalName>springbootstudentapi</finalName>
+	<finalName>springbootmanagerapi</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
