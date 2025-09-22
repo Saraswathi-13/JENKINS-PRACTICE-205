@@ -9,25 +9,24 @@ import jakarta.persistence.Table;
 @Table(name = "manager_table")
 public class Manager {
 	@Id
-	@Column(name = "student_id")
+	@Column(name = "manager_id")
 	private int id;
-	@Column(name = "student_name", nullable = false, length = 50)
+	@Column(name = "manager_name", nullable = false, length = 50)
 	private String name;
-	@Column(name = "student_gender", nullable = false, length = 10)
+	@Column(name = "manager_gender", nullable = false, length = 10)
 	private String gender; //FEMALE or MALE
-	@Column(name = "student_department", nullable = false, length = 20)
-	private String department;
-	@Column(name = "student_program", nullable = false, length = 10)
+	
+	@Column(name = "manager_program", nullable = false, length = 10)
 	private String program; //B.Tech or M.Tech or BCA or MCA
-	@Column(name = "student_year", nullable = false)
-	private String year; // 1 or 2 or 3
-	@Column(name = "student_semester", nullable = false, length = 10)
-	private String semester; // ODD or EVEN
-	@Column(name = "student_email", nullable = false, unique = true, length = 20)
+	@Column(name = "manager_experience", nullable = false)
+	private String experience; // 1 or 2 or 3
+	@Column(name = "manager_salary", nullable = false, length = 10)
+	private String salary; // ODD or EVEN
+	@Column(name = "manager_email", nullable = false, unique = true, length = 20)
 	private String email;
-	@Column(name = "student_password", nullable = false, length = 50)
+	@Column(name = "manager_password", nullable = false, length = 50)
 	private String password;
-	@Column(name = "student_contact", nullable = false, unique = true, length = 20)
+	@Column(name = "manager_contact", nullable = false, unique = true, length = 20)
 	private String contact;
 	
 	public int getId() {
@@ -48,29 +47,24 @@ public class Manager {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getDepartment() {
-		return department;
-	}
-	public void setDepartment(String department) {
-		this.department = department;
-	}
+	
 	public String getProgram() {
 		return program;
 	}
 	public void setProgram(String program) {
 		this.program = program;
 	}
-	public String getYear() {
-		return year;
+	public String getExperience() {
+		return experience;
 	}
-	public void setYear(String year) {
-		this.year = year;
+	public void setExperience(String experience) {
+		this.experience = experience;
 	}
-	public String getSemester() {
-		return semester;
+	public String getSalary() {
+		return salary;
 	}
-	public void setSemester(String semester) {
-		this.semester = semester;
+	public void setSalary(String salary) {
+		this.salary = salary;
 	}
 	public String getEmail() {
 		return email;
@@ -92,8 +86,7 @@ public class Manager {
 	}
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", gender=" + gender + ", department=" + department
-				+ ", program=" + program + ", year=" + year + ", semester=" + semester + ", email=" + email
+		return "Student [id=" + id + ", name=" + name + ", gender=" + gender + ", program=" + program + ", experience=" + experience + ", salary=" + salary + ", email=" + email
 				+ ", password=" + password + ", contact=" + contact + "]";
 	}
 }

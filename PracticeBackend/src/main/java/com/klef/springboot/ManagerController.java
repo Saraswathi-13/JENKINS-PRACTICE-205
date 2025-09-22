@@ -26,8 +26,8 @@ public class ManagerController {
     
 
     @PostMapping("/add")
-    public ResponseEntity<Manager> addManager(@RequestBody Manager student) {
-        Manager savedManager = managerService.addManager(student);
+    public ResponseEntity<Manager> addManager(@RequestBody Manager manager) {
+        Manager savedManager = managerService.addManager(manager);
         return new ResponseEntity<>(savedManager, HttpStatus.CREATED);
     }
 
@@ -38,34 +38,34 @@ public class ManagerController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<?> getStudentById(@PathVariable int id) {
-    	Manager student = managerService.getManagerById(id);
-        if (student != null) {
-            return new ResponseEntity<>(student, HttpStatus.OK);
+    public ResponseEntity<?> getManagerById(@PathVariable int id) {
+    	Manager manager = managerService.getManagerById(id);
+        if (manager != null) {
+            return new ResponseEntity<>(manager, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Student with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Manager with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateStudent(@RequestBody Manager student) {
-    	Manager existing = managerService.getManagerById(student.getId());
+    public ResponseEntity<?> updateManager(@RequestBody Manager manager) {
+    	Manager existing = managerService.getManagerById(manager.getId());
         if (existing != null) {
-        	Manager updatedStudent = managerService.updateManager(student);
-            return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
+        	Manager updatedManager = managerService.updateManager(manager);
+            return new ResponseEntity<>(updatedManager, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Cannot update. Student with ID " + student.getId() + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Cannot update. Manager with ID " + manager.getId() + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable int id) {
+    public ResponseEntity<String> deleteManager(@PathVariable int id) {
     	Manager existing = managerService.getManagerById(id);
         if (existing != null) {
             managerService.deleteManagerById(id);
-            return new ResponseEntity<>("Student with ID " + id + " deleted successfully.", HttpStatus.OK);
+            return new ResponseEntity<>("Manager with ID " + id + " deleted successfully.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Cannot delete. Student with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Cannot delete. Manager with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 }

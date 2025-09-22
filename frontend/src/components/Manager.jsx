@@ -109,10 +109,9 @@ const Manager = () => {
       id: '',
       name: '',
       gender: '',
-      department: '',
       program: '',
-      year: '',
-      semester: '',
+      experience: '',
+      salary: '',
       email: '',
       password: '',
       contact: ''
